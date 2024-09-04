@@ -1,0 +1,16 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+  "name": "Ubuntu",
+  "image": "mcr.microsoft.com/devcontainers/base:jammy",
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  "remoteUser": "vscode",
+
+  // Mounts to add to the dev container. More info: https://containers.dev/features/mounts.
+  "mounts": [
+    "source=availablefortheworld-volume,target=/workspaces/AvailableForTheWorld.github.io,type=volume"
+  ],
+
+  "postCreateCommand": "git clone https://github.com/YourUsername/AvailableForTheWorld.github.io.git /workspaces/AvailableForTheWorld.github.io || true"
+}
