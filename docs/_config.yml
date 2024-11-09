@@ -6,3 +6,4 @@ email: 435829792@qq.com
 description: >- # this means to ignore newlines until "baseurl:"
   for blog posts
 github_username: jekyll
+theme: minima  # Add this line if it's missing

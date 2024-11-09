@@ -4,3 +4,5 @@ gem "jekyll", "~>  3.10.0"
 
 gem "github-pages", "~> 	232", group: :jekyll_plugins
 
+gem "minima"  # Add this if using minima theme
+
