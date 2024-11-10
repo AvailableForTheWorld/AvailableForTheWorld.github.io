@@ -1,0 +1,24 @@
+nav {
+  a {
+    text-decoration: none;
+    color: cadetblue;
+    &.current {
+      color: greenyellow;
+    }
+  }
+}
+
+.tag {
+  display: inline-block;
+  background: #eee;
+  padding: 2px 8px;
+  margin: 0 4px;
+  border-radius: 12px;
+  color: #666;
+  font-size: 0.8em;
+
+  &:hover {
+    background: #ddd;
+    color: #333;
+  }
+}
