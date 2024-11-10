@@ -6,7 +6,19 @@ email: 435829792@qq.com
 description: >- # this means to ignore newlines until "baseurl:"
   for blog posts
 github_username: jekyll
+# Theme settings
 theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Minima specific settings
+minima:
+  date_format: '%b %-d, %Y'
+  social_links:
+    github: jekyll
+
+# Build settings
 sass:
   sass_dir: _sass
-permalink: /posts/:title/ # Add this line for cleaner URLs
+permalink: /posts/:title/
