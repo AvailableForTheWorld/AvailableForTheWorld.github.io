@@ -1,16 +1,20 @@
 domain: AvailableForTheWorld.github.io
 url: https://AvailableForTheWorld.github.io
-baseurl: '' # Leave empty for user sites
+baseurl: ""
 title: my blog
 email: 435829792@qq.com
 description: >- # this means to ignore newlines until "baseurl:"
   for blog posts
 github_username: jekyll
+
 # Theme settings
 theme: minima
+remote_theme: jekyll/minima
+
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-remote-theme
 
 # Minima specific settings
 minima:
