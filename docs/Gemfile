@@ -1,8 +1,12 @@
 source "https://mirrors.tuna.tsinghua.edu.cn/rubygems/"
 
-# Use GitHub Pages
-gem "github-pages", group: :jekyll_plugins
-gem "jekyll-remote-theme"
+# Use github-pages gem which will provide the correct Jekyll version
+gem "github-pages", "~> 228"
+gem "minima", "~> 2.5.1"
+gem "faraday-retry"
+gem "kramdown-parser-gfm"
+gem "webrick"
+gem "wdm", ">= 0.1.0" if Gem.win_platform?
 
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"

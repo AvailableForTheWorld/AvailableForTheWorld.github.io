@@ -9,12 +9,9 @@ github_username: jekyll
 
 # Theme settings
 theme: minima
-remote_theme: jekyll/minima
-
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
-  - jekyll-remote-theme
 
 # Minima specific settings
 minima:
@@ -25,4 +22,3 @@ minima:
 # Build settings
 sass:
   sass_dir: _sass
-permalink: /posts/:title/
