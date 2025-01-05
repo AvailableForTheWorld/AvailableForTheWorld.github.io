@@ -1,7 +1,7 @@
 GEM
   remote: https://mirrors.tuna.tsinghua.edu.cn/rubygems/
   specs:
-    activesupport (8.0.0)
+    activesupport (7.2.2.1)
       base64
       benchmark (>= 0.3)
       bigdecimal
@@ -13,7 +13,6 @@ GEM
       minitest (>= 5.1)
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
-      uri (>= 0.13.1)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
     base64 (0.2.0)
@@ -44,8 +43,7 @@ GEM
       logger
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
-    faraday-retry (2.2.1)
-      faraday (~> 2.0)
+    ffi (1.17.0-arm64-darwin)
     ffi (1.17.0-x64-mingw-ucrt)
     forwardable-extended (2.6.0)
     gemoji (3.0.1)
@@ -232,6 +230,8 @@ GEM
     minitest (5.25.1)
     net-http (0.5.0)
       uri
+    nokogiri (1.16.7-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.16.7-x64-mingw-ucrt)
       racc (~> 1.4)
     octokit (4.25.1)
@@ -266,21 +266,15 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (1.8.0)
     uri (1.0.2)
-    wdm (0.2.0)
-    webrick (1.9.0)
 
 PLATFORMS
+  arm64-darwin-23
   x64-mingw-ucrt
 
 DEPENDENCIES
-  faraday-retry
   github-pages (~> 228)
   jekyll-feed (~> 0.12)
   jekyll-seo-tag (~> 2.8)
-  kramdown-parser-gfm
-  minima (~> 2.5.1)
-  wdm (>= 0.1.0)
-  webrick
 
 BUNDLED WITH
    2.5.22
