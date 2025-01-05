@@ -148,10 +148,10 @@ jekyll serve --livereload --port 3456
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>{{ page.title }}</title>
+    <title>&#123;&#123; page.title &#125;&#125;</title>
   </head>
   <body>
-    {{ content }}
+    &#123;&#123; include navigation.html &#125;&#125; &#123;&#123; content &#125;&#125;
   </body>
 </html>
 ```
@@ -204,8 +204,12 @@ includes 被称作重用代码片段，通过将重复的内容抽取到 `_inclu
 
 ```html:_includes/navigation.html
 <nav>
-  <a href="/">Home</a>
-  <a href="/about">About</a>
+  <a href="/" &#123;&#123; if page.url == "/" &#125;&#125;style="color: red;"&#123;&#123; endif &#125;&#125;>
+    Home
+  </a>
+  <a href="/about.html" &#123;&#123; if page.url == "/about.html" &#125;&#125;style="color: red;"&#123;&#123; endif &#125;&#125;>
+    About
+  </a>
 </nav>
 ```
 
@@ -227,22 +231,22 @@ includes 被称作重用代码片段，通过将重复的内容抽取到 `_inclu
 └── index.html
 ```
 
-并且在`default.html`layout 中增加 include 语法:
+并且在`default.html`layout 中增加 include 语法：
 
 ```html:_layouts/default.html
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>{{ page.title }}</title>
+    <title>&#123;&#123; page.title &#125;&#125;</title>
   </head>
   <body>
-    {% include navigation.html %} {{ content }}
+    &#123;&#123; include navigation.html &#125;&#125; &#123;&#123; content &#125;&#125;
   </body>
 </html>
 ```
 
-此处`{% %}` 是专为 jekyll 自带语法的标识符，`include`将引入\_includes 目录中的文件作为代码片段使用。
+此处&#123;&#123; &#125;&#125; 是专为 jekyll 自带语法的标识符，`include`将引入_includes 目录中的文件作为代码片段使用。
 
 我们访问任意链接（home、about）即可发现页面首部增加了导航栏，点击仍以链接即可跳转
 
@@ -250,35 +254,25 @@ includes 被称作重用代码片段，通过将重复的内容抽取到 `_inclu
 
 ```html:_includes/navigation.html
 <nav>
-  <a href="/" {% if page.url == "/" %}style="color: red;"{% endif %}>
+  <a href="/" &#123;&#123; if page.url == "/" &#125;&#125;style="color: red;"&#123;&#123; endif &#125;&#125;>
     Home
   </a>
-  <a href="/about.html" {% if page.url == "/about.html" %}style="color: red;"{% endif %}>
+  <a href="/about.html" &#123;&#123; if page.url == "/about.html" &#125;&#125;style="color: red;"&#123;&#123; endif &#125;&#125;>
     About
   </a>
 </nav>
 ```
 
-其中 jekyll 的 if 条件判断的语法通过条件判断开始符`{% if xxx %}`以及结束符`{% endif %}` 来进行判断，另外如果需要多个 if 判断可以在其中加入`{% elsif xxx %}` 以及`{% else %}` 如下：
+其中 jekyll 的 if 条件判断的语法通过条件判断开始符&#123;&#123; if xxx &#125;&#125;以及结束符&#123;&#123; endif &#125;&#125; 来进行判断，另外如果需要多个 if 判断可以在其中加入&#123;&#123; elsif xxx &#125;&#125; 以及&#123;&#123; else &#125;&#125; 如下：
 
 ```html:_includes/navigation.html
 <nav>
   <a href="/"
-     {% if page.url == "/" %}
-       style="color: red;"
-     {% elsif page.url == "/home.html" %}
-       style="color: blue;"
-     {% else %}
-       style="color: black;"
-     {% endif %}>
+     &#123;&#123; if page.url == "/" &#125;&#125;style="color: red;"&#123;&#123; elsif page.url == "/home.html" &#125;&#125;style="color: blue;"&#123;&#123; else &#125;&#125;style="color: black;"&#123;&#123; endif &#125;&#125;>
     Home
   </a>
   <a href="/about.html"
-     {% if page.url == "/about.html" %}
-       style="color: orange;"
-     {% elsif page.url == "/info.html" %}
-       style="color: green;"
-     {% endif %}>
+     &#123;&#123; if page.url == "/about.html" &#125;&#125;style="color: orange;"&#123;&#123; elsif page.url == "/info.html" &#125;&#125;style="color: green;"&#123;&#123; endif &#125;&#125;>
     About
   </a>
 </nav>
@@ -295,15 +289,15 @@ includes 被称作重用代码片段，通过将重复的内容抽取到 `_inclu
   link: /about.html
 ```
 
-`_data`文件夹中的信息是由 jekyll 系统变量`site.data`访问，如上面的数组化结构即`site.data.navigation`, 此时我们修改原来的 navigation 文件,`_includes/navigation.html`:
+`_data`文件夹中的信息是由 jekyll 系统变量`site.data`访问，如上面的数组化结构即`site.data.navigation`, 此时我们修改原来的 navigation 文件,`_includes/navigation.html`：
 
 ```html:_includes/navigation.html
 <nav>
-  {% for item in site.data.navigation %}
-    <a href="{{ item.link }}" {% if page.url == item.link %}style="color: red;"{% endif %}>
-      {{ item.name }}
+  &#123;&#123; for item in site.data.navigation &#125;&#125;
+    <a href="{{ item.link }}" &#123;&#123; if page.url == item.link &#125;&#125;style="color: red;"&#123;&#123; endif &#125;&#125;>
+      &#123;&#123; item.name &#125;&#125;
     </a>
-  {% endfor %}
+  &#123;&#123; endfor &#125;&#125;
 </nav>
 ```
 
@@ -311,7 +305,7 @@ includes 被称作重用代码片段，通过将重复的内容抽取到 `_inclu
 
 ### Assets
 
-此时我们发现样式编辑挺麻烦的，需要对某个链接的 tag 加入行内样式。但其实，jekyll 自带预编译器 sass 支持，我们可以将所有样式/图片文件/js 脚本这里文件放置于 assets 目录中，如下:
+此时我们发现样式编辑挺麻烦的，需要对某个链接的 tag 加入行内样式。但其实，jekyll 自带预编译器 sass 支持，我们可以将所有样式/图片文件/js 脚本这里文件放置于 assets 目录中，如下：
 
 ```text:tree.txt
 .
@@ -322,7 +316,7 @@ includes 被称作重用代码片段，通过将重复的内容抽取到 `_inclu
 ...
 ```
 
-jekyll 处理 sass 默认会找`_sass`对应的文件，我们创建`_sass/main.scss`:
+jekyll 处理 sass 默认会找`_sass`对应的文件，我们创建`_sass/main.scss`：
 
 ```scss
 .current {
@@ -330,38 +324,40 @@ jekyll 处理 sass 默认会找`_sass`对应的文件，我们创建`_sass/main.
 }
 ```
 
-在`assets/css/styles.scss` 我们写入:
+在`assets/css/styles.scss` 我们写入：
 
 ```scss
 ---
 ---
 
+/* Import styles */
+@import 'minima';
 @import 'main';
 ```
 
-并将样式引入到 default 布局中去，`_layouts/default.html`:
+并将样式引入到 default 布局中去，`_layouts/default.html`：
 
 ```html:_layouts/default.html
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>{{ page.title }}</title>
+    <title>&#123;&#123; page.title &#125;&#125;</title>
     <link rel="stylesheet" href="/assets/css/styles.css" />
   </head>
   <body>
-    {% include navigation.html %} {{ content }}
+    &#123;&#123; include navigation.html &#125;&#125; &#123;&#123; content &#125;&#125;
   </body>
 </html>
 ```
 
-此时我们可以应用我们所写的样式到 navigation 中，`navigation.html`:
+此时我们可以应用我们所写的样式到 navigation 中，`navigation.html`：
 
 ```html:_includes/navigation.html
 <nav>
-  {% for item in site.data.navigation %}
-    <a href="{{ item.link }}"{% if page.url == item.link %} class="current"{% endif %}>{{ item.name }}</a>
-  {% endfor %}
+  &#123;&#123; for item in site.data.navigation &#125;&#125;
+    <a href="{{ item.link }}" &#123;&#123; if page.url == item.link &#125;&#125;class="current"&#123;&#123; endif &#125;&#125;>&#123;&#123; item.name &#125;&#125;</a>
+  &#123;&#123; endfor &#125;&#125;
 </nav>
 ```
 
@@ -371,7 +367,7 @@ jekyll 处理 sass 默认会找`_sass`对应的文件，我们创建`_sass/main.
 
 接下来就到我们的博客编写环节，jekyll 默认在`_posts`存放所有博客路径，并且以`日期-文件名.md`的默认格式命名来解析博客内容
 
-1. 我们创造一个博客例子, `_posts/2025-01-05-init.md`:
+1. 我们创造一个博客例子, `_posts/2025-01-05-init.md`：
 
 ```markdown:_posts/2025-01-05-init.md
 ---
@@ -389,15 +385,15 @@ This is a test post.
 layout: default
 ---
 
-<h1>{{ page.title }}</h1>
-<p>{{ page.date | date_to_string }} - {{ page.author }}</p>
+<h1>&#123;&#123; page.title &#125;&#125;</h1>
+<p>&#123;&#123; page.date | date_to_string &#125;&#125; - &#123;&#123; page.author &#125;&#125;</p>
 
-{{ content }}
+&#123;&#123; content &#125;&#125;
 ```
 
 其中 ｜ 类似于 Linux 里面的管道运算符，将左侧数据通过右侧方法加工处理。 `date_to_string` 是 jekyll 自带的日期转字符串的方法。
 
-3. 我们在根目录增加一个 blog 页面来渲染整个博客页面，`blog.md`:
+3. 我们在根目录增加一个 blog 页面来渲染整个博客页面，`blog.md`：
 
 ```markdown:blog.md
 ---
@@ -408,12 +404,12 @@ title: Blog
 <h1>Latest Posts</h1>
 
 <ul>
-  {% for post in site.posts %}
+  &#123;&#123; for post in site.posts &#125;&#125;
     <li>
-      <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-      {{ post.excerpt }}
+      <h2><a href="{{ post.url }}">&#123;&#123; post.title &#125;&#125;</a></h2>
+      &#123;&#123; post.excerpt &#125;&#125;
     </li>
-  {% endfor %}
+  &#123;&#123; endfor &#125;&#125;
 </ul>
 ```
 
@@ -460,7 +456,7 @@ position: Chief Editor
 Jill is an avid fruit grower based in the south of France.
 ```
 
-以及`_authors/ted.md`:
+以及`_authors/ted.md`：
 
 ```markdown:_authors/ted.md
 ---
@@ -472,7 +468,7 @@ position: Writer
 Ted has been eating fruit since he was baby.
 ```
 
-我们创建一个新的页面来显示全体作者，`staff.md`:
+我们创建一个新的页面来显示全体作者，`staff.md`：
 
 ```markdown:staff.md
 ---
@@ -483,21 +479,21 @@ title: Staff
 <h1>Staff</h1>
 
 <ul>
- {% for author in site.authors %}
+ &#123;&#123; for author in site.authors &#125;&#125;
    <li>
-	  <h2><a href="{{ author.url }}">{{ author.name }}</a></h2>
-     <h2>{{ author.name }}</h2>
-     <h3>{{ author.position }}</h3>
-     <p>{{ author.content | markdownify }}</p>
+      <h2><a href="{{ author.url }}">&#123;&#123; author.name &#125;&#125;</a></h2>
+     <h2>&#123;&#123; author.name &#125;&#125;</h2>
+     <h3>&#123;&#123; author.position &#125;&#125;</h3>
+     <p>&#123;&#123; author.content | markdownify &#125;&#125;</p>
    </li>
- {% endfor %}
+ &#123;&#123; endfor &#125;&#125;
 </ul>
 ```
 
 这里面使用了管道运算符 markdown 格式化来处理 author 的文本信息
 从根目录配置的 authors 可以直接从 site 通过`site.authors`访问
 
-修改导航配置数据，`_data/navigation.yml`:
+修改导航配置数据，`_data/navigation.yml`：
 
 ```yaml:_data/navigation.yml
 - name: Home
@@ -511,30 +507,6 @@ title: Staff
 ```
 
 但此时我们发现配置的 staff 页面没有我们刚刚设置的内容，这是由于在\_config.yml 配置的集合字段默认不会给页面中展示，所以我们需要修改配置打开它，`_config.yml`：
-
-```yaml:_config.yml
-collections:
-  authors:
-    output: true
-```
-
-重启项目就会发现 staff 页面里面的数据正常显示了
-此时点击 author 链接即可以跳转到对应的 author 详情页。
-
-我们再给集合加上 layout, `_layouts/author.html`:
-
-```html:_layouts/author.html
----
-layout: default
----
-
-<h1>{{ page.name }}</h1>
-<h2>{{ page.position }}</h2>
-
-{{ content }}
-```
-
-每次这种手动添加 layout 方式很麻烦，更简洁的做法是在全局 yml 配置文件设置默认配置，如下：
 
 ```yaml:_config.yml
 collections:
@@ -645,7 +617,7 @@ sass:
 
 等项目部署完成（不到 1 分钟）即可访问带有主题的链接
 
-{% raw %}
+&#123;&#123; ... &#125;&#125;
 
 # Layout Examples
 
@@ -654,10 +626,10 @@ sass:
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>{{ page.title }}</title>
+    <title>&#123;&#123; page.title &#125;&#125;</title>
   </head>
   <body>
-    {{ content }}
+    &#123;&#123; content &#125;&#125;
   </body>
 </html>
 ```
@@ -666,10 +638,10 @@ sass:
 
 ```html
 <nav>
-  <a href="/" {% if page.url == "/" %}style="color: red;"{% endif %}>
+  <a href="/" &#123;&#123; if page.url == "/" &#125;&#125;style="color: red;"&#123;&#123; endif &#125;&#125;>
     Home
   </a>
-  <a href="/about.html" {% if page.url == "/about.html" %}style="color: red;"{% endif %}>
+  <a href="/about.html" &#123;&#123; if page.url == "/about.html" &#125;&#125;style="color: red;"&#123;&#123; endif &#125;&#125;>
     About
   </a>
 </nav>
@@ -680,14 +652,12 @@ sass:
 ```html
 <nav>
   <a href="/"
-     {% if page.url == "/" %}
-       style="color: red;"
-     {% elsif page.url == "/home.html" %}
-       style="color: blue;"
-     {% else %}
-       style="color: black;"
-     {% endif %}>
+     &#123;&#123; if page.url == "/" &#125;&#125;style="color: red;"&#123;&#123; elsif page.url == "/home.html" &#125;&#125;style="color: blue;"&#123;&#123; else &#125;&#125;style="color: black;"&#123;&#123; endif &#125;&#125;>
     Home
+  </a>
+  <a href="/about.html"
+     &#123;&#123; if page.url == "/about.html" &#125;&#125;style="color: orange;"&#123;&#123; elsif page.url == "/info.html" &#125;&#125;style="color: green;"&#123;&#123; endif &#125;&#125;>
+    About
   </a>
 </nav>
 ```
@@ -696,51 +666,49 @@ sass:
 
 ```html
 <nav>
-  {% for item in site.data.navigation %}
-    <a href="{{ item.link }}" {% if page.url == item.link %}style="color: red;"{% endif %}>
-      {{ item.name }}
+  &#123;&#123; for item in site.data.navigation &#125;&#125;
+    <a href="{{ item.link }}" &#123;&#123; if page.url == item.link &#125;&#125;style="color: red;"&#123;&#123; endif &#125;&#125;>
+      &#123;&#123; item.name &#125;&#125;
     </a>
-  {% endfor %}
+  &#123;&#123; endfor &#125;&#125;
 </nav>
 ```
 
 # Blog Post Example
 
 ```html
-<h1>{{ page.title }}</h1>
-<p>{{ page.date | date_to_string }} - {{ page.author }}</p>
+<h1>&#123;&#123; page.title &#125;&#125;</h1>
+<p>&#123;&#123; page.date | date_to_string &#125;&#125; - &#123;&#123; page.author &#125;&#125;</p>
 
-{{ content }}
+&#123;&#123; content &#125;&#125;
 ```
 
 # Blog List Example
 
 ```html
 <ul>
-  {% for post in site.posts %}
+  &#123;&#123; for post in site.posts &#125;&#125;
   <li>
-    <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-    {{ post.excerpt }}
+    <h2><a href="{{ post.url }}">&#123;&#123; post.title &#125;&#125;</a></h2>
+    &#123;&#123; post.excerpt &#125;&#125;
   </li>
-  {% endfor %}
+  &#123;&#123; endfor &#125;&#125;
 </ul>
 ```
 
-# Staff List Example
+# Collection Example
 
 ```html
 <ul>
-  {% for author in site.authors %}
+  &#123;&#123; for author in site.authors &#125;&#125;
   <li>
-    <h2><a href="{{ author.url }}">{{ author.name }}</a></h2>
-    <h3>{{ author.position }}</h3>
-    <p>{{ author.content | markdownify }}</p>
+    <h2><a href="{{ author.url }}">&#123;&#123; author.name &#125;&#125;</a></h2>
+    <h3>&#123;&#123; author.position &#125;&#125;</h3>
+    <p>&#123;&#123; author.content | markdownify &#125;&#125;</p>
   </li>
-  {% endfor %}
+  &#123;&#123; endfor &#125;&#125;
 </ul>
 ```
-
-{% endraw %}
 
 # Configuration Examples
 
@@ -765,3 +733,4 @@ defaults:
     values:
       layout: 'default'
 ```
+&#123;&#123; ... &#125;&#125;
